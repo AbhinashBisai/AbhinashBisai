@@ -1,0 +1,73 @@
+class ATM:
+    def __init__(self, balance=1000):
+        self.balance = balance
+        self.pin = "1234"  # Default PIN
+
+    def check_balance(self):
+        return self.balance
+
+    def withdraw(self, amount):
+        if amount > self.balance:
+            return "Insufficient balance"
+        elif amount <= 0:
+            return "Invalid amount"
+        else:
+            self.balance -= amount
+            return f"Withdrawal successful. Remaining balance: ${self.balance}"
+
+    def deposit(self, amount):
+        if amount <= 0:
+            return "Invalid amount"
+        else:
+            self.balance += amount
+            return f"Deposit successful. Updated balance: ${self.balance}"
+
+    def validate_pin(self, entered_pin):
+        return entered_pin == self.pin
+
+
+def main():
+    atm = ATM()
+
+    while True:
+        print("\n==== ATM Interface ====")
+        print("1. Check Balance")
+        print("2. Withdraw")
+        print("3. Deposit")
+        print("4. Exit")
+
+        choice = input("Enter your choice: ")
+
+        if choice == '1':
+            pin = input("Enter your PIN: ")
+            if atm.validate_pin(pin):
+                print(f"Your balance is: ${atm.check_balance()}")
+            else:
+                print("Invalid PIN. Please try again.")
+
+        elif choice == '2':
+            pin = input("Enter your PIN: ")
+            if atm.validate_pin(pin):
+                amount = float(input("Enter amount to withdraw: "))
+                print(atm.withdraw(amount))
+            else:
+                print("Invalid PIN. Please try again.")
+
+        elif choice == '3':
+            pin = input("Enter your PIN: ")
+            if atm.validate_pin(pin):
+                amount = float(input("Enter amount to deposit: "))
+                print(atm.deposit(amount))
+            else:
+                print("Invalid PIN. Please try again.")
+
+        elif choice == '4':
+            print("Thank you for using the ATM!")
+            break
+
+        else:
+            print("Invalid choice. Please enter a valid option.")
+
+
+if __name__ == "__main__":
+    main()
